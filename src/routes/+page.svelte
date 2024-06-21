@@ -1,24 +1,31 @@
-<script>
-	import Button from '$lib/components/ui/button/button.svelte';
-	import * as Card from '$lib/components/ui/card/index';
-	import { Progress } from '$lib/components/ui/progress/index';
+<script lang="ts">
+	import Pageination from '$lib/components/base/Pageination.svelte';
+	import * as Table from '$lib/components/ui/table/index.js';
+
+	export let data;
 </script>
 
-<h1>Welcome to SvelteKit</h1>
-<Button>Hello Meetup</Button>
-<Button variant="secondary">Secondary Button</Button>
-<Button variant="link" size="sm">A Link</Button>
-<Button variant="link" size="xs" class="text-purple-500">very small Link</Button>
-
-<Card.Root class="w-44">
-	<Card.Header class="pb-2">
-		<Card.Description>This Week</Card.Description>
-		<Card.Title class="text-4xl">$1329</Card.Title>
-	</Card.Header>
-	<Card.Content>
-		<div class="text-xs text-muted-foreground">+25% from last week</div>
-	</Card.Content>
-	<Card.Footer>
-		<Progress value={25} aria-label="25% increase" />
-	</Card.Footer>
-</Card.Root>
+<div class="p-8">
+	<Table.Root>
+		<Table.Caption>A list of your recent invoices.</Table.Caption>
+		<Table.Header>
+			<Table.Row>
+				<Table.Head class="w-4">ID</Table.Head>
+				<Table.Head>Code</Table.Head>
+				<Table.Head>Message</Table.Head>
+				<Table.Head>URL</Table.Head>
+			</Table.Row>
+		</Table.Header>
+		<Table.Body>
+			{#each data.messages as message (message.id)}
+				<Table.Row>
+					<Table.Cell class="font-medium">{message.id}</Table.Cell>
+					<Table.Cell class="text-right">{message.code}</Table.Cell>
+					<Table.Cell>{message.message}</Table.Cell>
+					<Table.Cell>{message.url}</Table.Cell>
+				</Table.Row>
+			{/each}
+		</Table.Body>
+	</Table.Root>
+	<Pageination perPage={data.pageSize} count={data.count} />
+</div>
