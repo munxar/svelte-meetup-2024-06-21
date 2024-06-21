@@ -1,11 +1,12 @@
 <script lang="ts">
 	import Pageination from '$lib/components/base/Pageination.svelte';
+	import Search from '$lib/components/base/Search.svelte';
 	import * as Table from '$lib/components/ui/table/index.js';
-
 	export let data;
 </script>
 
 <div class="p-8">
+	<Search q={data.q} />
 	<Table.Root>
 		<Table.Caption>A list of your recent invoices.</Table.Caption>
 		<Table.Header>
@@ -27,5 +28,5 @@
 			{/each}
 		</Table.Body>
 	</Table.Root>
-	<Pageination perPage={data.pageSize} count={data.count} />
+	<Pageination page={data.page} perPage={data.pageSize} count={data.count} />
 </div>
