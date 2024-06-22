@@ -8,6 +8,10 @@
 	export let count: number;
 	export let perPage: number;
 	export let page: number;
+
+	// how could I check for if there is a search query and then pass
+	// it to the pagination
+	// the aim is to reach http://localhost:5173/?q=sun&page=3 for example
 </script>
 
 <Pagination.Root {page} {count} {perPage} siblingCount={10} let:pages let:currentPage>
