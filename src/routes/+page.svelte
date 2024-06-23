@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Pageination from '$lib/components/base/Pageination.svelte';
+	import Pagination from '$lib/components/base/Pagination.svelte';
 	import Search from '$lib/components/base/Search.svelte';
 	import * as Table from '$lib/components/ui/table/index.js';
 	export let data;
@@ -27,5 +27,5 @@
 			{/each}
 		</Table.Body>
 	</Table.Root>
-	<Pageination page={data.page} perPage={data.pageSize} count={data.count} />
+	<Pagination page={data.page} perPage={data.pageSize} count={data.count} />
 </div>
