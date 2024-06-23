@@ -4,18 +4,27 @@
 
 	import * as Pagination from '$lib/components/ui/pagination/index.js';
 	import Button from '../ui/button/button.svelte';
+	import { page as pageStore } from '$app/stores';
 
 	export let count: number;
 	export let perPage: number;
 	export let page: number;
+	$: totalPages = Math.ceil(count / perPage);
+
+	// persist all other query parameters to keep e.g. search, sorting...
+	$: link = (page: number) => {
+		const search = new URLSearchParams($pageStore.url.searchParams);
+		search.set('page', page.toString());
+		return `?${search}`;
+	};
 </script>
 
-<Pagination.Root {page} {count} {perPage} siblingCount={10} let:pages let:currentPage>
+<Pagination.Root {page} {count} {perPage} let:pages let:currentPage>
 	<Pagination.Content>
 		<Pagination.Item>
-			<Pagination.PrevButton>
+			<Pagination.PrevButton href={page > 1 ? link(page - 1) : ''}>
 				<ChevronLeft class="h-4 w-4" />
-				<a href="?page={page - 1}" class="hidden sm:block">Previous</a>
+				<span class="hidden sm:block">Previous</span>
 			</Pagination.PrevButton>
 		</Pagination.Item>
 		{#each pages as page (page.key)}
@@ -27,14 +36,14 @@
 				<Pagination.Item>
 					<Button
 						variant={currentPage == page.value ? 'default' : 'outline'}
-						href="?page={page.value}">{page.value}</Button
+						href={link(page.value)}>{page.value}</Button
 					>
 				</Pagination.Item>
 			{/if}
 		{/each}
 		<Pagination.Item>
-			<Pagination.NextButton>
-				<a href="?page={page + 1}" class="hidden sm:block">Next</a>
+			<Pagination.NextButton href={page < totalPages ? link(page + 1) : ''}>
+				<span class="hidden sm:block">Next</span>
 				<ChevronRight class="h-4 w-4" />
 			</Pagination.NextButton>
 		</Pagination.Item>
