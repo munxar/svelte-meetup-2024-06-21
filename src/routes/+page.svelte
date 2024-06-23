@@ -28,5 +28,6 @@
 			{/each}
 		</Table.Body>
 	</Table.Root>
-	<Pageination page={data.page} perPage={data.pageSize} count={data.count} />
+
+	<Pageination {...data.pagination} />
 </div>
