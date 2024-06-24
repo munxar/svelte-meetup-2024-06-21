@@ -16,7 +16,7 @@
 				type: 'page'
 			} as Page;
 		});
-		const currentPage = pages[page];
+		const currentPage = pages[page] || {};
 		const prevPage = page > 0 ? pages[page - 1] : currentPage;
 		const nextPage = page < totalPages - 1 ? pages[page + 1] : currentPage;
 
@@ -86,7 +86,6 @@
 				{/if}
 			</li>
 		{/each}
-
 		<li>
 			<Button variant={nextPage.isActive ? 'outline' : 'ghost'} href={nextPage.href} class="">
 				<span class="hidden sm:block">Next</span>
